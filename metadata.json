@@ -1,0 +1,5 @@
+{
+  "name": "Tailwind v4 Font Utility Generator",
+  "description": "An application to help create custom font helper utilities as a table of styles, which are then output as Tailwind v4 custom utility CSS.",
+  "requestFramePermissions": []
+}
