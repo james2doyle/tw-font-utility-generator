@@ -1,12 +1,43 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { FontFamily } from './types';
 import { INITIAL_FONT_FAMILIES } from './constants';
 import FontFamilyGroup from './components/FontFamilyGroup';
 import OutputPanel from './components/OutputPanel';
 import { PlusIcon } from './components/icons';
 
+const getInitialState = (): FontFamily[] => {
+  try {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const decodedString = atob(hash);
+      const parsedState = JSON.parse(decodedString);
+      if (Array.isArray(parsedState) && parsedState.every(item => 'id' in item && 'prefix' in item && 'styles' in item)) {
+        return parsedState;
+      }
+    }
+  } catch (error) {
+    console.error("Failed to parse state from URL hash, falling back to default.", error);
+  }
+  return INITIAL_FONT_FAMILIES;
+};
+
+
 const App: React.FC = () => {
-  const [fontFamilies, setFontFamilies] = useState<FontFamily[]>(INITIAL_FONT_FAMILIES);
+  const [fontFamilies, setFontFamilies] = useState<FontFamily[]>(getInitialState);
+
+  useEffect(() => {
+    try {
+      const stateString = JSON.stringify(fontFamilies);
+      const encodedState = btoa(stateString);
+      // Use location.hash directly as it's more compatible with sandboxed environments
+      // than history.replaceState.
+      if (window.location.hash !== `#${encodedState}`) {
+        window.location.hash = encodedState;
+      }
+    } catch (error) {
+      console.error("Failed to update URL with state:", error);
+    }
+  }, [fontFamilies]);
 
   const handleAddFamily = useCallback(() => {
     const newFamily: FontFamily = {

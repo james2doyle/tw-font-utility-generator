@@ -33,7 +33,7 @@ const OutputPanel: React.FC<OutputPanelProps> = ({ cssCode }) => {
         </button>
       </div>
       <div className="p-4 flex-grow min-h-0">
-        <pre className="text-sm bg-slate-100 p-4 rounded-lg overflow-auto h-full text-slate-600">
+        <pre className="text-sm bg-slate-100 p-4 rounded-lg overflow-auto h-full text-slate-600 no-scrollbar">
           <code>
             {cssCode}
           </code>

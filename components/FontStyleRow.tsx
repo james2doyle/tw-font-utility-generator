@@ -9,8 +9,8 @@ interface FontStyleRowProps {
   onDelete: () => void;
 }
 
-const inputClasses = "w-full bg-slate-100 text-slate-800 p-2 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none transition-colors";
-const selectClasses = "w-full bg-slate-100 text-slate-800 p-2 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none transition-colors appearance-none";
+const inputClasses = "w-full bg-white text-slate-800 p-2 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none transition-colors";
+const selectClasses = "w-full bg-white text-slate-800 p-2 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none transition-colors appearance-none";
 
 const FontStyleRow: React.FC<FontStyleRowProps> = ({ style, prefix, onUpdate, onDelete }) => {
 

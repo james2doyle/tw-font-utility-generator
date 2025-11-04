@@ -47,7 +47,7 @@ const FontFamilyGroup: React.FC<FontFamilyGroupProps> = ({ family, onUpdateFamil
                 type="text"
                 value={family.prefix}
                 onChange={handlePrefixChange}
-                className="bg-slate-100 text-lg font-bold text-slate-800 p-1 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none"
+                className="bg-white text-lg font-bold text-slate-800 p-1 rounded-md border border-slate-400 focus:border-slate-500 focus:ring-slate-500 focus:outline-none"
                 placeholder="e.g. heading"
             />
         </div>
