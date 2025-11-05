@@ -73,7 +73,7 @@ const App: React.FC = () => {
         if (style.fontSize <= 0 || style.fontWeight <= 0) return;
         const utilityName = `type-${family.prefix}-${style.fontSize}${String(style.fontWeight / 10).padStart(2, '0')}`;
         cssString += `@utility ${utilityName} {\n`;
-        cssString += `  font: ${style.fontStyle} normal ${style.fontWeight} ${style.fontSize}px/${style.lineHeight}px var(--font-${family.prefix});\n`;
+        cssString += `  font: ${style.fontStyle} normal ${style.fontWeight} ${style.fontSize / 16}rem/${style.lineHeight / 16}rem var(--font-${family.prefix});\n`;
         cssString += `  letter-spacing: ${style.letterSpacing}px;\n`;
         cssString += `}\n\n`;
       });
