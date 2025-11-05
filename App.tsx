@@ -24,6 +24,7 @@ const getInitialState = (): FontFamily[] => {
 
 const App: React.FC = () => {
   const [fontFamilies, setFontFamilies] = useState<FontFamily[]>(getInitialState);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     try {
@@ -58,6 +59,16 @@ const App: React.FC = () => {
     setFontFamilies(prev => prev.filter(family => family.id !== familyId));
   }, []);
 
+  const handleCopyUrl = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 1000);
+  }, []);
+
+  const handleResetUrl = useCallback(() => {
+    setFontFamilies([]);
+  }, []);
+
   const generatedCss = useMemo(() => {
     let cssString = `/* Define your font families as CSS variables in your main CSS file */\n`;
     cssString += `:root {\n`;
@@ -84,9 +95,27 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      <header className="py-6 px-4 md:px-8 border-b border-slate-300">
-        <h1 className="text-3xl font-bold text-slate-900">Tailwind v4 Font Utility Generator</h1>
-        <p className="text-slate-600 mt-1">Create and export custom type utilities for your design system.</p>
+      <header className="py-6 px-4 md:px-8 border-b border-slate-300 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900">Tailwind v4 Font Utility Generator</h1>
+          <p className="text-slate-600 mt-1">Create and export custom type utilities for your design system.</p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={handleCopyUrl}
+            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-md transition-colors"
+          >
+            {isCopied ? "Copied!" : "Copy URL"}
+          </button>
+          <button
+            type="button"
+            onClick={handleResetUrl}
+            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-md transition-colors"
+          >
+            Reset
+          </button>
+        </div>
       </header>
 
       <main className="p-4 md:p-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -100,6 +129,7 @@ const App: React.FC = () => {
             />
           ))}
           <button
+            type="button"
             onClick={handleAddFamily}
             className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-slate-200 hover:bg-slate-300/50 border-2 border-dashed border-slate-400 rounded-lg text-slate-700 font-semibold transition-colors duration-200"
           >
