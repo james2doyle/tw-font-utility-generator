@@ -71,7 +71,7 @@ const App: React.FC = () => {
 
   const generatedCss = useMemo(() => {
     let cssString = `/* Define your font families as CSS variables in your main CSS file */\n`;
-    cssString += `:root {\n`;
+    cssString += `@theme {\n`;
     const uniquePrefixes = [...new Set(fontFamilies.map(f => f.prefix))];
     uniquePrefixes.forEach(prefix => {
       cssString += `  --font-${prefix}: "Your Font Name", sans-serif;\n`;
